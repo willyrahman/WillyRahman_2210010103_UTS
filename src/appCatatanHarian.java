@@ -1,5 +1,8 @@
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /*
@@ -12,12 +15,14 @@ import javax.swing.JOptionPane;
  * @author LENOVO
  */
 public class appCatatanHarian extends javax.swing.JFrame {
-
+    private ArrayList<Catatan> daftarCatatan = new ArrayList<>();
+    private DefaultListModel<Catatan> listModel = new DefaultListModel<>();
     /**
      * Creates new form appCatatanHarian
      */
     public appCatatanHarian() {
         initComponents();
+        
     }
 
     /**
@@ -36,7 +41,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
         areaKonten = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listCatatan = new javax.swing.JList<>();
         jCalendar1 = new com.toedter.calendar.JCalendar();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -64,12 +69,12 @@ public class appCatatanHarian extends javax.swing.JFrame {
 
         jLabel2.setText("Tulis Catatan :");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        listCatatan.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(listCatatan);
 
         jLabel3.setText("Isi Tanggal Hari ini :");
 
@@ -219,7 +224,62 @@ public class appCatatanHarian extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Judul dan konten harus diisi!");
             return;
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String tanggal = sdf.format(selectedDate);
+        Catatan baru = new Catatan(judul, konten, tanggal);
+        listModel.addElement(baru);
+        daftarCatatan.add(baru);
+        resetField();
     }
+  private void ubahCatatan() {
+        int index = listCatatan.getSelectedIndex();
+        if (index != -1) {
+            Catatan catatan = daftarCatatan.get(index);
+
+            // Validasi tanggal hanya hari ini
+            Date selectedDate = calendar.getDate();
+            if (!isToday(selectedDate)) {
+                JOptionPane.showMessageDialog(this, "Tanggal yang dipilih harus hari ini!");
+                return;
+            }
+
+            catatan.setJudul(JudulText.getText());
+            catatan.setTanggal(new SimpleDateFormat("dd-MM-yyyy").format(selectedDate));
+            catatan.setKonten(areaKonten.getText());
+            listModel.set(index, catatan);
+            JOptionPane.showMessageDialog(this, "Catatan berhasil diubah!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih catatan yang ingin diubah!");
+        }
+    }
+  private void hapusCatatan() {
+        int index = listCatatan.getSelectedIndex();
+        if (index != -1) {
+            listModel.remove(index);
+            daftarCatatan.remove(index);
+            resetField();
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih catatan yang ingin dihapus!");
+        }
+    }
+  private void tampilkanCatatan() {
+        Catatan terpilih = listCatatan.getSelectedValue();
+        if (terpilih != null) {
+           JudulText.setText(terpilih.getJudul());
+            areaKonten.setText(terpilih.getKonten());
+            try {
+                Date selectedDate = new SimpleDateFormat("dd-MM-yyyy").parse(terpilih.getTanggal());
+                calendar.setDate(selectedDate);
+            } catch (Exception ignored) {}
+        }
+    }
+  
+  private void resetField() {
+        JudulText.setText("");
+        areaKonten.setText("");
+        calendar.setDate(today); // Reset ke hari ini
+    }
+   
     /**
      * @param args the command line arguments
      */
@@ -270,9 +330,9 @@ public class appCatatanHarian extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listCatatan;
     // End of variables declaration//GEN-END:variables
 }
