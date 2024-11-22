@@ -1,4 +1,6 @@
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -84,6 +86,11 @@ public class appCatatanHarian extends javax.swing.JFrame {
 
         jLabel2.setText("Tulis Catatan :");
 
+        listCatatan.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listCatatanValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(listCatatan);
 
         btnTambah.setBackground(new java.awt.Color(102, 255, 51));
@@ -288,7 +295,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
         resetField();
-        resetDaftar();
+         resetDaftar();
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -306,34 +313,66 @@ public class appCatatanHarian extends javax.swing.JFrame {
           areaKonten.setText("");
           JudulText.requestFocus();
     }//GEN-LAST:event_btnBersihkanActionPerformed
+
+    private void listCatatanValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listCatatanValueChanged
+        // TODO add your handling code here:
+          if (!evt.getValueIsAdjusting()) { // Cegah eksekusi ganda saat nilai berubah
+            int selectedIndex = listCatatan.getSelectedIndex();
+            if (selectedIndex != -1) { // Pastikan ada item yang dipilih
+                String selectedNote = catatan.get(selectedIndex); // Ambil catatan dari daftar
+                String[] parts = selectedNote.split(";", 2); // Pisahkan judul dan isi
+                String title = parts[0].replaceFirst("^\\d+\\. ", ""); // Hilangkan nomor urut dari judul
+                String content = (parts.length > 1) ? parts[1] : ""; // Isi catatan jika ada
+
+                // Tampilkan di JTextField dan JTextArea
+                JudulText.setText(title);
+                areaKonten.setText(content);
+            }
+        }
+    }//GEN-LAST:event_listCatatanValueChanged
     private void tambahCatatan() {
         String title = JudulText.getText();
-        String content = areaKonten.getText();
-        if (!title.isEmpty() && !content.isEmpty()) {
-            catatan.add(title + ";" + content);
-            catatanListModel.addElement(title);
-            resetField();
-        } else {
-            JOptionPane.showMessageDialog(this, "Judul dan konten tidak boleh kosong.");
+    String content = areaKonten.getText();
+
+    // Pastikan judul dan konten tidak kosong
+    if (!title.isEmpty() && !content.isEmpty()) {
+        // Mengecek apakah judul sudah ada
+        for (String note : catatan) {
+            String[] parts = note.split(";", 2);
+            if (parts[0].equals(title)) {
+                JOptionPane.showMessageDialog(this, "Catatan dengan judul ini sudah ada.");
+                return;
+            }
         }
+
+        catatan.add(title + ";" + content); // Tambahkan catatan ke ArrayList
+        catatanListModel.addElement(title);  // Tambahkan judul ke model daftar
+        resetField(); // Reset form setelah menambah
+    } else {
+        JOptionPane.showMessageDialog(this, "Judul dan konten tidak boleh kosong.");
+    }
+
 
 
     }
   private void ubahCatatan() {
-            int selectedIndex = listCatatan.getSelectedIndex();
-        if (selectedIndex >= 0) {
-            String title = JudulText.getText();
-            String content = areaKonten.getText();
-            if (!title.isEmpty() && !content.isEmpty()) {
-                catatan.set(selectedIndex, title + ";" + content);
-                catatanListModel.set(selectedIndex, title);
-                resetField();
-            } else {
-                JOptionPane.showMessageDialog(this, "Judul dan konten tidak boleh kosong.");
-            }
+        int selectedIndex = listCatatan.getSelectedIndex();
+    if (selectedIndex >= 0) {
+        String title = JudulText.getText();
+        String content = areaKonten.getText();
+
+        if (!title.isEmpty() && !content.isEmpty()) {
+            // Ubah catatan yang sudah ada
+            catatan.set(selectedIndex, title + ";" + content);
+            catatanListModel.set(selectedIndex, title); // Update judul di model
+            resetField(); // Reset field setelah ubah
         } else {
-            JOptionPane.showMessageDialog(this, "Pilih catatan untuk diubah.");
+            JOptionPane.showMessageDialog(this, "Judul dan konten tidak boleh kosong.");
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Pilih catatan yang ingin diubah.");
+    }
+
 
 
     }
@@ -376,12 +415,12 @@ public class appCatatanHarian extends javax.swing.JFrame {
 
 
     }
-   private void imporDariFileTxt() {
-     JFileChooser fileChooser = new JFileChooser();
+private void imporDariFileTxt() {
+    JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Pilih File untuk Diimpor");
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
     int userSelection = fileChooser.showOpenDialog(this);
-
     if (userSelection == JFileChooser.APPROVE_OPTION) {
         File fileToOpen = fileChooser.getSelectedFile();
 
@@ -393,31 +432,52 @@ public class appCatatanHarian extends javax.swing.JFrame {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
             String line;
-            catatan.clear(); // Membersihkan daftar catatan sebelumnya
-            catatanListModel.clear(); // Membersihkan model list
+            catatan.clear(); // Bersihkan daftar catatan sebelumnya
+            catatanListModel.clear(); // Bersihkan model JList sebelumnya
 
-            int counter = 1; // Mulai nomor catatan
             while ((line = reader.readLine()) != null) {
                 // Pisahkan isi berdasarkan simbol ";"
-                String[] parts = line.split(";", 2); // Hanya split pada kemunculan pertama ";"
-                String title = parts[0].trim(); // Ambil teks sebelum ";"
-                String content = (parts.length > 1) ? parts[1].trim() : ""; // Ambil teks setelah ";"
+                String[] parts = line.split(";", 2); // Split hanya pada kemunculan pertama ";"
+                String title = parts[0].trim(); // Judul
+                String content = (parts.length > 1) ? parts[1].trim() : ""; // Isi
 
-                // Format judul dengan nomor urut
-                String formattedTitle = counter + ". " + title;
+                // Simpan judul dan isi catatan ke ArrayList catatan
+                catatan.add(title + "; \n" + content);
 
-                // Tambahkan ke list catatan
-                catatan.add(formattedTitle + ";" + content); // Simpan judul dan isi
-                catatanListModel.addElement(formattedTitle); // Hanya judul yang ditampilkan di list
-                counter++;
+                // Tambahkan hanya judul ke model JList
+                catatanListModel.addElement(title);
             }
 
-            JOptionPane.showMessageDialog(this, "Catatan berhasil diimpor dari: " + fileToOpen.getAbsolutePath());
+            JOptionPane.showMessageDialog(this, "Catatan berhasil diimpor dari file.");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Gagal mengimpor catatan. " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat membaca file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Import file dibatalkan.");
     }
+
+    // Pastikan MouseListener hanya ditambahkan sekali
+    if (listCatatan.getMouseListeners().length == 0) { // Hindari duplikasi listener
+        listCatatan.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) { // Jika diklik satu kali
+                    int selectedIndex = listCatatan.getSelectedIndex();
+                    if (selectedIndex != -1) {
+                        // Ambil data lengkap dari ArrayList catatan berdasarkan indeks
+                        String selectedItem = catatan.get(selectedIndex);
+                        String[] parts = selectedItem.split(";", 2); // Pisahkan judul dan isi
+                        String title = parts[0];
+                        String content = (parts.length > 1) ? parts[1] : "Tidak ada isi.";
+
+                        // Tampilkan judul dan isi di JTextArea
+                        areaKonten.setText("Judul: " + title + "\n\nIsi:\n" + content);
+                    }
+                }
+            }
+        });
     }
+}
  
    private void tampilkanKonten() {
         int selectedIndex = listCatatan.getSelectedIndex();

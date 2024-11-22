@@ -1,4 +1,4 @@
-tes;1. bangun tidur
+2;1. bangun tidur
 2. Sholat Shubuh
 3. makan pagi 
 4. berangkat Kuliah
