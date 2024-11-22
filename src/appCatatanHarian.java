@@ -1,16 +1,14 @@
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.text.Document;
+
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -22,16 +20,19 @@ import javax.swing.text.Document;
  * @author LENOVO
  */
 public class appCatatanHarian extends javax.swing.JFrame {
-    private ArrayList<Catatan> daftarCatatan = new ArrayList<>();
-    private DefaultListModel<Catatan> listModel ;
+    private DefaultListModel<String> noteListModel;
+    private ArrayList<String> notes;
+
     /**
      * Creates new form appCatatanHarian
      */
     public appCatatanHarian() {
   
         initComponents();
-        listModel = new DefaultListModel<>(); // Initialize the list model
-        listCatatan.setModel(listModel); 
+        noteListModel = new DefaultListModel<>();
+        listCatatan.setModel(noteListModel);
+        notes = new ArrayList<>();
+
         resetField();
     }
 
@@ -57,11 +58,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        tanggalText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,32 +113,10 @@ public class appCatatanHarian extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("export csv");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jButton7.setText("import csv");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         jButton8.setText("keluar");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("tulis tanggal  hari ini :");
-
-        tanggalText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tanggalTextActionPerformed(evt);
             }
         });
 
@@ -152,43 +127,32 @@ public class appCatatanHarian extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(JudulText))
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(48, 48, 48)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(JudulText))
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tanggalText, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(147, 147, 147)
-                                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton7)))
-                        .addGap(0, 17, Short.MAX_VALUE))))
+                        .addGap(147, 147, 147)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(101, 101, 101))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,21 +171,16 @@ public class appCatatanHarian extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(96, 96, 96)
                                 .addComponent(jLabel2)))))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tanggalText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(jButton5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton8))
+                .addComponent(jButton8)
+                .addContainerGap(276, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -271,191 +230,91 @@ public class appCatatanHarian extends javax.swing.JFrame {
         imporDariFileTxt();
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        eksporKeFileCsv();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        imporDariFileCsv();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void tanggalTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanggalTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tanggalTextActionPerformed
     private void tambahCatatan() {
-                String judul = JudulText.getText();
-            String konten = areaKonten.getText();
-            String tanggal = tanggalText.getText();
-
-            if (judul.isEmpty() || konten.isEmpty() || tanggal.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Judul, konten, dan tanggal harus diisi!");
-                return;
-            }
-
-            if (!isValidDate(tanggal)) {
-                JOptionPane.showMessageDialog(this, "Format tanggal salah. Gunakan format dd-MM-yyyy.");
-                return;
-    }
-
-                Catatan baru = new Catatan(judul, konten, tanggal);
-                listModel.addElement(baru);
-                daftarCatatan.add(baru);
-                resetField();
-    }
-  private void ubahCatatan() {
-                int index = listCatatan.getSelectedIndex();
-           if (index != -1) {
-               Catatan catatan = daftarCatatan.get(index);
-               String tanggal = tanggalText.getText();
-
-               if (!isValidDate(tanggal)) {
-                   JOptionPane.showMessageDialog(this, "Format tanggal salah. Gunakan format dd-MM-yyyy.");
-                   return;
-               }
-
-               catatan.setJudul(JudulText.getText());
-               catatan.setKonten(areaKonten.getText());
-               catatan.setTanggal(tanggal);
-               listModel.set(index, catatan);
-               JOptionPane.showMessageDialog(this, "Catatan berhasil diubah!");
-           } else {
-               JOptionPane.showMessageDialog(this, "Pilih catatan yang ingin diubah!");
-           }
-    }
-  private void hapusCatatan() {
-        int index = listCatatan.getSelectedIndex();
-        if (index != -1) {
-            listModel.remove(index);
-            daftarCatatan.remove(index);
+        String title = JudulText.getText();
+        String content = areaKonten.getText();
+        if (!title.isEmpty() && !content.isEmpty()) {
+            notes.add(title + ";" + content);
+            noteListModel.addElement(title);
             resetField();
         } else {
-            JOptionPane.showMessageDialog(this, "Pilih catatan yang ingin dihapus!");
+            JOptionPane.showMessageDialog(this, "Judul dan konten tidak boleh kosong.");
         }
+
+
+    }
+  private void ubahCatatan() {
+            int selectedIndex = listCatatan.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            String title = JudulText.getText();
+            String content = areaKonten.getText();
+            if (!title.isEmpty() && !content.isEmpty()) {
+                notes.set(selectedIndex, title + ";" + content);
+                noteListModel.set(selectedIndex, title);
+                resetField();
+            } else {
+                JOptionPane.showMessageDialog(this, "Judul dan konten tidak boleh kosong.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih catatan untuk diubah.");
+        }
+
+
+    }
+  private void hapusCatatan() {
+        int selectedIndex = listCatatan.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            notes.remove(selectedIndex);
+            noteListModel.remove(selectedIndex);
+            resetField();
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih catatan untuk dihapus.");
+        }
+
     }
    private void eksporKeFileTxt() {
-        if (daftarCatatan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Tidak ada catatan untuk diekspor!");
-            return;
-        }
-
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Pilih lokasi untuk menyimpan file");
-        int userSelection = fileChooser.showSaveDialog(this);
-
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileChooser.getSelectedFile() + ".txt"))) {
-                for (Catatan catatan : daftarCatatan) {
-                    writer.write("Judul: " + catatan.getJudul() + "\n");
-                    writer.write("Tanggal: " + catatan.getTanggal() + "\n");
-                    writer.write("Konten: " + catatan.getKonten() + "\n");
-                    writer.write("=========================================\n");
-                }
-                JOptionPane.showMessageDialog(this, "Catatan berhasil diekspor ke file .txt!");
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menulis file: " + e.getMessage());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("notes.txt"))) {
+            for (String note : notes) {
+                writer.write(note);
+                writer.newLine();
             }
+            JOptionPane.showMessageDialog(this, "Catatan berhasil diekspor ke notes.txt.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengekspor catatan.");
         }
+
+
     }
    private void imporDariFileTxt() {
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Pilih file .txt untuk diimpor");
-    int userSelection = fileChooser.showOpenDialog(this);
-
-    if (userSelection == JFileChooser.APPROVE_OPTION) {
-        try (Scanner scanner = new Scanner(fileChooser.getSelectedFile())) {
-            while (scanner.hasNextLine()) {
-                String judul = scanner.nextLine().replace("Judul: ", "");
-                String tanggal = scanner.nextLine().replace("Tanggal: ", "");
-                String konten = scanner.nextLine().replace("Konten: ", "");
-                scanner.nextLine(); // Abaikan garis pemisah
-                Catatan catatan = new Catatan(judul, konten, tanggal);
-                listModel.addElement(catatan);
-                daftarCatatan.add(catatan);
+    try (BufferedReader reader = new BufferedReader(new FileReader("notes.txt"))) {
+            String line;
+            notes.clear();
+            noteListModel.clear();
+            while ((line = reader.readLine()) != null) {
+                notes.add(line);
+                String title = line.split(";")[0];
+                noteListModel.addElement(title);
             }
-            JOptionPane.showMessageDialog(this, "Data berhasil diimpor dari file .txt!");
+            JOptionPane.showMessageDialog(this, "Catatan berhasil diimpor dari notes.txt.");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat membaca file: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Gagal mengimpor catatan.");
         }
-    }
-}
-   private void eksporKeFileCsv() {
-    if (daftarCatatan.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Tidak ada catatan untuk diekspor!");
-        return;
-    }
 
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Pilih lokasi untuk menyimpan file");
-    int userSelection = fileChooser.showSaveDialog(this);
-
-    if (userSelection == JFileChooser.APPROVE_OPTION) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileChooser.getSelectedFile() + ".csv"))) {
-            writer.write("Judul,Tanggal,Konten\n");
-            for (Catatan catatan : daftarCatatan) {
-                writer.write(catatan.getJudul() + "," + catatan.getTanggal() + "," + catatan.getKonten() + "\n");
-            }
-            JOptionPane.showMessageDialog(this, "Catatan berhasil diekspor ke file .csv!");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menulis file: " + e.getMessage());
-        }
-    }
 }
-   private void imporDariFileCsv() {
-    JFileChooser fileChooser = new JFileChooser();
-    fileChooser.setDialogTitle("Pilih file .csv untuk diimpor");
-    int userSelection = fileChooser.showOpenDialog(this);
-
-    if (userSelection == JFileChooser.APPROVE_OPTION) {
-        try (Scanner scanner = new Scanner(fileChooser.getSelectedFile())) {
-            scanner.nextLine(); // Abaikan header
-            while (scanner.hasNextLine()) {
-                String[] data = scanner.nextLine().split(",");
-                Catatan catatan = new Catatan(data[0], data[2], data[1]);
-                listModel.addElement(catatan);
-                daftarCatatan.add(catatan);
-            }
-            JOptionPane.showMessageDialog(this, "Data berhasil diimpor dari file .csv!");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat membaca file: " + e.getMessage());
-        }
-    }
-}
-  private void tampilkanCatatan() {
-            int index = listCatatan.getSelectedIndex();
-         if (index != -1) {
-             Catatan terpilih = daftarCatatan.get(index);
-             JudulText.setText(terpilih.getJudul());
-             areaKonten.setText(terpilih.getKonten());
-             tanggalText.setText(terpilih.getTanggal());
-         }
-    }
+ 
+  
   
   private void resetField() {
-            JudulText.setText("");
-            areaKonten.setText("");
-            tanggalText.setText("");
+        JudulText.setText("");
+        areaKonten.setText("");
+
+
     }
-    private boolean isToday(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return sdf.format(date).equals(sdf.format(new Date()));
-    }
-   private boolean isValidDate(String date) {
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    sdf.setLenient(false);
-    try {
-        sdf.parse(date);
-        return true;
-    } catch (Exception e) {
-        return false;
-    }
-}
+   
     /**
      * @param args the command line arguments
      */
@@ -499,16 +358,12 @@ public class appCatatanHarian extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> listCatatan;
-    private javax.swing.JTextField tanggalText;
     // End of variables declaration//GEN-END:variables
 }
