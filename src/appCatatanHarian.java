@@ -1,11 +1,13 @@
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 
@@ -32,7 +34,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
         noteListModel = new DefaultListModel<>();
         listCatatan.setModel(noteListModel);
         notes = new ArrayList<>();
-
+        listCatatan.addListSelectionListener(evt -> tampilkanKonten());
         resetField();
     }
 
@@ -59,6 +61,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,6 +123,13 @@ public class appCatatanHarian extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("reset");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,11 +144,15 @@ public class appCatatanHarian extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(JudulText))
                 .addGap(32, 32, 32)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(158, 158, 158))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,18 +160,17 @@ public class appCatatanHarian extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(101, 101, 101))
+                        .addComponent(jButton5)
+                        .addGap(23, 23, 23))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -177,10 +190,11 @@ public class appCatatanHarian extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton8)
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,13 +203,14 @@ public class appCatatanHarian extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -234,6 +249,12 @@ public class appCatatanHarian extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        resetField();
+         resetDaftar();
+    }//GEN-LAST:event_jButton6ActionPerformed
     private void tambahCatatan() {
         String title = JudulText.getText();
         String content = areaKonten.getText();
@@ -277,44 +298,74 @@ public class appCatatanHarian extends javax.swing.JFrame {
 
     }
    private void eksporKeFileTxt() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("notes.txt"))) {
-            for (String note : notes) {
-                writer.write(note);
-                writer.newLine();
+         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Pilih Lokasi untuk Menyimpan File");
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                for (String note : notes) {
+                    writer.write(note);
+                    writer.newLine();
+                }
+                JOptionPane.showMessageDialog(this, "Catatan berhasil diekspor ke " + fileToSave.getAbsolutePath());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Gagal mengekspor catatan.");
             }
-            JOptionPane.showMessageDialog(this, "Catatan berhasil diekspor ke notes.txt.");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Gagal mengekspor catatan.");
         }
 
 
     }
    private void imporDariFileTxt() {
-    try (BufferedReader reader = new BufferedReader(new FileReader("notes.txt"))) {
-            String line;
-            notes.clear();
-            noteListModel.clear();
-            while ((line = reader.readLine()) != null) {
-                notes.add(line);
-                String title = line.split(";")[0];
-                noteListModel.addElement(title);
+    JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Pilih File untuk Diimpor");
+        int userSelection = fileChooser.showOpenDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToOpen = fileChooser.getSelectedFile();
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileToOpen))) {
+                String line;
+                notes.clear();
+                noteListModel.clear();
+                while ((line = reader.readLine()) != null) {
+                    notes.add(line);
+                    String title = line.split(";")[0];
+                    noteListModel.addElement(title);
+                }
+                JOptionPane.showMessageDialog(this, "Catatan berhasil diimpor dari " + fileToOpen.getAbsolutePath());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Gagal mengimpor catatan.");
             }
-            JOptionPane.showMessageDialog(this, "Catatan berhasil diimpor dari notes.txt.");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Gagal mengimpor catatan.");
         }
 
 }
  
-  
-  
-  private void resetField() {
-        JudulText.setText("");
-        areaKonten.setText("");
-
-
+   private void tampilkanKonten() {
+        int selectedIndex = listCatatan.getSelectedIndex();
+        if (selectedIndex >= 0) {
+            String[] parts = notes.get(selectedIndex).split(";", 2);
+            if (parts.length == 2) {
+                JudulText.setText(parts[0]);
+                areaKonten.setText(parts[1]);
+            }
+        }
     }
-   
+  
+        private void resetField() {
+              JudulText.setText("");
+              areaKonten.setText("");
+
+          }
+                private void resetDaftar() {
+            // Bersihkan data di array dan model
+            notes.clear();
+            noteListModel.clear();
+            // Kosongkan input field
+            resetField();
+            // Tampilkan pesan konfirmasi
+            JOptionPane.showMessageDialog(this, "Daftar catatan berhasil direset.");
+          }
     /**
      * @param args the command line arguments
      */
@@ -358,6 +409,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
