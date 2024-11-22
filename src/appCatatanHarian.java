@@ -56,15 +56,15 @@ public class appCatatanHarian extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listCatatan = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
+        btnUbah = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
+        btnKeluar = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnImport = new javax.swing.JButton();
+        btnBersihkan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,53 +86,53 @@ public class appCatatanHarian extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(listCatatan);
 
-        jButton1.setBackground(new java.awt.Color(102, 255, 51));
-        jButton1.setText("tambah");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTambah.setBackground(new java.awt.Color(102, 255, 51));
+        btnTambah.setText("tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTambahActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 102));
-        jButton2.setText("ubah");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnUbah.setBackground(new java.awt.Color(255, 255, 102));
+        btnUbah.setText("ubah");
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnUbahActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 0, 0));
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("hapus");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnHapus.setBackground(new java.awt.Color(255, 0, 0));
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        btnHapus.setText("hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnHapusActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 255));
-        jButton4.setText("export");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExport.setBackground(new java.awt.Color(255, 204, 255));
+        btnExport.setText("export");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExportActionPerformed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(153, 102, 0));
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("keluar");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnKeluar.setBackground(new java.awt.Color(153, 102, 0));
+        btnKeluar.setForeground(new java.awt.Color(255, 255, 255));
+        btnKeluar.setText("keluar");
+        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnKeluarActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(102, 255, 204));
-        jButton6.setText("reset");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnReset.setBackground(new java.awt.Color(102, 255, 204));
+        btnReset.setText("reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnResetActionPerformed(evt);
             }
         });
 
@@ -142,19 +142,19 @@ public class appCatatanHarian extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 204));
-        jButton5.setText("import");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnImport.setBackground(new java.awt.Color(255, 255, 204));
+        btnImport.setText("import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnImportActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 102, 255));
-        jButton7.setText("bersihkan");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnBersihkan.setBackground(new java.awt.Color(255, 102, 255));
+        btnBersihkan.setText("bersihkan");
+        btnBersihkan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnBersihkanActionPerformed(evt);
             }
         });
 
@@ -183,21 +183,21 @@ public class appCatatanHarian extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnTambah)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton2)
+                                .addComponent(btnUbah)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
+                                .addComponent(btnHapus)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton6)
+                                .addComponent(btnReset)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton7)))
+                                .addComponent(btnBersihkan)))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(btnExport)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)))
+                        .addComponent(btnImport)))
                 .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -222,15 +222,15 @@ public class appCatatanHarian extends javax.swing.JFrame {
                                         .addComponent(jLabel2)))))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4)
-                            .addComponent(jButton6)
-                            .addComponent(jButton7)
-                            .addComponent(jButton5))))
+                            .addComponent(btnTambah)
+                            .addComponent(btnUbah)
+                            .addComponent(btnHapus)
+                            .addComponent(btnExport)
+                            .addComponent(btnReset)
+                            .addComponent(btnBersihkan)
+                            .addComponent(btnImport))))
                 .addGap(18, 18, 18)
-                .addComponent(jButton8)
+                .addComponent(btnKeluar)
                 .addContainerGap(311, Short.MAX_VALUE))
         );
 
@@ -255,57 +255,57 @@ public class appCatatanHarian extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JudulTextActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
          tambahCatatan();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnTambahActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
         // TODO add your handling code here:
         ubahCatatan();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnUbahActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
         hapusCatatan();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnHapusActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         // TODO add your handling code here:
         eksporKeFileTxt();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnExportActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImportActionPerformed
         // TODO add your handling code here:
         imporDariFileTxt();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnImportActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btnKeluarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         // TODO add your handling code here:
         resetField();
-         resetDaftar();
-    }//GEN-LAST:event_jButton6ActionPerformed
+        resetDaftar();
+    }//GEN-LAST:event_btnResetActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
             if (jCheckBox1.isSelected()) {
-            jButton3.setEnabled(false); // Nonaktifkan tombol hapus
+            btnHapus.setEnabled(false); // Nonaktifkan tombol hapus
         } else {
-            jButton3.setEnabled(true); // Aktifkan tombol hapus
+            btnHapus.setEnabled(true); // Aktifkan tombol hapus
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBersihkanActionPerformed
         // TODO add your handling code here:
         JudulText.setText("");
           areaKonten.setText("");
           JudulText.requestFocus();
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnBersihkanActionPerformed
     private void tambahCatatan() {
         String title = JudulText.getText();
         String content = areaKonten.getText();
@@ -482,14 +482,14 @@ public class appCatatanHarian extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField JudulText;
     private javax.swing.JTextArea areaKonten;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton btnBersihkan;
+    private javax.swing.JButton btnExport;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnImport;
+    private javax.swing.JButton btnKeluar;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JButton btnUbah;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
