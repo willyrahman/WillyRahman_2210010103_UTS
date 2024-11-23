@@ -1,7 +1,0 @@
-2;1. bangun tidur
-2. Sholat Shubuh
-3. makan pagi 
-4. berangkat Kuliah
-5. kuliah
-6. pulang kuliah
-7. mengerjakan tugas
