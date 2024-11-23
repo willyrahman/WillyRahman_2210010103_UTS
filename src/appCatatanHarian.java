@@ -284,9 +284,9 @@ public class appCatatanHarian extends javax.swing.JFrame {
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
             if (jCheckBox1.isSelected()) {
-            btnHapus.setEnabled(false); 
+            btnHapus.setEnabled(false); // mematikan tombol hapus
         } else {
-            btnHapus.setEnabled(true); 
+            btnHapus.setEnabled(true); // hidupkan tombol hapus
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -337,7 +337,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Pilih Catatan yang akan Diubah", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
+    } 
   private void hapusCatatan() {
               int selectedIndex = listCatatan.getSelectedIndex();
         if (selectedIndex != -1) {
