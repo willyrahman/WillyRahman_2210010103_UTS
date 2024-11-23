@@ -97,6 +97,7 @@ Aplikasi Catatan Harian berbasis GUI menggunakan Java Swing untuk mengelola cata
    Willy Rahman - 2210010103
 
 ## **Demo** 
-   ![Demo GIF](https://github.com/willyrahman/WillyRahman_2210010103_UTS/blob/main/img/demo%20aplikasi%20catatan%20harian%20uts%20pbo2.gif)
+  ![Demo GIF](https://github.com/willyrahman/WillyRahman_2210010103_UTS/blob/main/img/demo%20aplikasi%20catatan%20harian%20uts%20pbo2.gif)
+
 
 
