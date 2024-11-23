@@ -366,7 +366,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                     writer.write("Judul: " + selectedJudul);
                     writer.newLine();
-                    writer.write("Isi: " + isi);
+                    writer.write(isi);
                     JOptionPane.showMessageDialog(this, "Catatan Disimpan", "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menyimpan file", "Error", JOptionPane.ERROR_MESSAGE);
