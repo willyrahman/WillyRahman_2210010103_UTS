@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  */
 public class appCatatanHarian extends javax.swing.JFrame {
    private DefaultListModel<String> listModel;
-    private HashMap<String, String> catatanMap; 
+   private HashMap<String, String> catatanMap; 
 
     /**
      * Creates new form appCatatanHarian
@@ -36,9 +36,7 @@ public class appCatatanHarian extends javax.swing.JFrame {
         initComponents();
         listModel = new DefaultListModel<>();
         listCatatan.setModel(listModel);
-        catatanMap = new HashMap<>();
-       
-        
+        catatanMap = new HashMap<>();  
     }
 
     /**
